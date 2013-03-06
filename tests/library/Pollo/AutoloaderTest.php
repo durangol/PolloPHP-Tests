@@ -6,24 +6,21 @@ class AutoloaderTest extends \PHPUnit_Framework_TestCase
 {
 	public function testAutoloaderInstance()
 	{
-		$mockAutoloader = $this->getMock('Pollo\\Autoloader\\StandardAutoloader', array('autoload'));
-		$mockAutoloader->expects($this->once())
-					   ->method('autoload')
-					   ->with($this->stringContains('Pollo\\Core\\Collection'));
-					   
+		$mockAutoloader = $this->getMock('Pollo\\Autoloader\\StandardAutoloader', array('__construct', 'autoload'));
+		$mockAutoloader->expects($this->atLeastOnce())
+					   ->method('autoload');
 		$autoloader = new Autoloader(array($mockAutoloader));
 		$autoloader->autoload('Pollo\\Core\\Collection');
-		spl_autoload_unregister($autoloader);
+		spl_autoload_unregister(array($autoloader, 'autoload'));
 	}
 
 	public function testAutoloaderFunction()
 	{
 		$autoloadFunction = function($class) {
-			require_once(str_replace('\\', '/', $class) . '.php');
+			return true;
 		};
-		$autoloader = new Autoloader(array($autloadFunction));
+		$autoloader = new Autoloader(array($autoloadFunction));
 		$autoloader->autoload('Pollo\\Core\\Collection');
-		$this->assertTrue(class_exists('Pollo\\Core\\Collection'));
-		spl_autoload_unregister($autoloader);
+		spl_autoload_unregister(array($autoloader, 'autoload'));
 	}
 }
