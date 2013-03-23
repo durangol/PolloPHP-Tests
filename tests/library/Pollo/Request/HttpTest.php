@@ -4,7 +4,7 @@ namespace Pollo\Request;
 
 use Pollo\Application\Mvc\Router\Route\Regex;
 
-class HttpTest
+class HttpTest extends \PHPUnit_Framework_TestCase
 {
     protected $_httpRequest;
 
