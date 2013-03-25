@@ -34,9 +34,8 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Object',$this->_collection->getIterator());
         $this->assertInstanceOf('ArrayIterator',$this->_collection->getIterator());
     }
-
-   public function testKey()
-    {
+    public function testKey()
+     {
         $this->assertArrayHasKey(0, $this->_collection->toArray());
         $this->assertArrayHasKey(5, $this->_collection->toArray());
     }
