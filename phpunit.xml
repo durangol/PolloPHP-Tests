@@ -4,7 +4,13 @@
 	</testsuite>
 
     <filter>
-      <blacklist>../vendor</blacklist>
+        <blacklist>
+            <directory>vendor</directory>
+            <directory>tests</directory>
+        </blacklist>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory>library/Pollo</directory>
+        </whitelist>
     </filter>
 
     <logging>

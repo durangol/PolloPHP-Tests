@@ -23,4 +23,11 @@ class AutoloaderTest extends \PHPUnit_Framework_TestCase
 		$autoloader->autoload('Pollo\\Core\\Collection');
 		spl_autoload_unregister(array($autoloader, 'autoload'));
 	}
+
+    public function testBadAddAutoloader()
+    {
+        $autoloader = new Autoloader();
+        $autoloader->addAutoloader(0, 'bad value');
+        spl_autoload_unregister(array($autoloader, 'autoload'));
+    }
 }
